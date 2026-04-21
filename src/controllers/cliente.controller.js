@@ -1,4 +1,4 @@
-const clientemodel = require('../models/cliente.model');
+const clientemodel = require('../models/producto.model');
 
 // GET /api/Cliente
 const getAll = async (req, res) => {
