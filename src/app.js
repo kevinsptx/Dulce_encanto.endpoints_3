@@ -7,4 +7,10 @@ app.use(express.json());
 const clienteRouter = require('./routes/cliente.routes');
 app.use('/api/cliente', clienteRouter);
 
+const productoRoutes = require('./routes/producto.routes');
+app.use('/api/productos', productoRoutes);
+
+const carritoRoutes = require('./routes/carrito.routes');
+app.use('/api/carrito', carritoRoutes);
+
 module.exports = app;
