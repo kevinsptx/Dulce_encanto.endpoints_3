@@ -1,15 +1,13 @@
 const pool = require('../config/db');
 
 const getAll = async () => {
-  const [rows] = await pool.query(
-    'SELECT * FROM producto'  // sin ORDER BY hasta confirmar el nombre de la columna
-  );
+  const [rows] = await pool.query('SELECT * FROM producto');
   return rows;
 };
 
 const getNuevos = async () => {
   const [rows] = await pool.query(
-    'SELECT * FROM producto LIMIT 4'
+    'SELECT * FROM producto ORDER BY id_producto DESC LIMIT 4'
   );
   return rows;
 };
@@ -30,7 +28,7 @@ const filtrarPorPiel = async (tipoPiel) => {
 
 const getById = async (id) => {
   const [rows] = await pool.query(
-    'SELECT * FROM producto WHERE id = ?', [id]
+    'SELECT * FROM producto WHERE id_producto = ?', [id]
   );
   return rows[0];
 };
@@ -40,7 +38,7 @@ const create = async ({ nombre, descripcion, precio, tipo_piel, mas_vendido }) =
     'INSERT INTO producto (nombre, descripcion, precio, tipo_piel, mas_vendido) VALUES (?, ?, ?, ?, ?)',
     [nombre, descripcion, precio, tipo_piel, mas_vendido]
   );
-  return { id: result.insertId, nombre, descripcion, precio, tipo_piel, mas_vendido };
+  return { id_producto: result.insertId, nombre, descripcion, precio, tipo_piel, mas_vendido };
 };
 
 module.exports = { getAll, getNuevos, getMasVendidos, filtrarPorPiel, getById, create };
