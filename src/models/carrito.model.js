@@ -52,4 +52,4 @@ const actualizar = async (id_cliente, id_producto, cantidad) => {
   return result.affectedRows;
 };
 
-module.exports = { agregar, ver, eliminar, actualizar };
+module.exports = { agregar, ver, eliminar, actualizar };   
