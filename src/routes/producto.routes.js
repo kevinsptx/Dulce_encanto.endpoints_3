@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const productoController = require('../controllers/producto.controller');
+const { verificarToken } = require('../middlewares/login.authMiddleware');
 
 // GET /api/productos
 router.get('/', productoController.getAll);
@@ -17,7 +18,7 @@ router.get('/filtrar', productoController.filtrarPorPiel);
 // GET /api/productos/:id
 router.get('/:id', productoController.getById);
 
-// POST /api/productos
-router.post('/', productoController.create);
+// POST /api/productos — protegida
+router.post('/', verificarToken, productoController.create);
 
 module.exports = router;

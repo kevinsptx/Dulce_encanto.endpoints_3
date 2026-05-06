@@ -3,10 +3,9 @@ const carritoModel = require('../models/carrito.model');
 // POST /api/carrito/:id_cliente/:id_producto
 const agregar = async (req, res) => {
   try {
-    const { id_cliente, id_producto } = req.params; // ← ambos por params ahora
-
-    const data = await carritoModel.agregar(id_cliente, id_producto);
-    res.status(201).json({ ok: true, msg: 'Producto agregado al carrito', data });
+    const { id_cliente, id_producto } = req.params;
+    await carritoModel.agregar(id_cliente, id_producto);
+    res.status(201).json({ ok: true, msg: 'Producto agregado al carrito' });
   } catch (err) {
     res.status(500).json({ ok: false, msg: err.message });
   }
@@ -43,9 +42,9 @@ const eliminar = async (req, res) => {
 const actualizar = async (req, res) => {
   try {
     const { id_cliente, id_producto } = req.params;
-    const cantidad = parseInt(req.body.cantidad); // ← parseInt para asegurar número entero
+    const cantidad = parseInt(req.body.cantidad);
 
-    if (isNaN(cantidad) || cantidad <= 0) { // ← isNaN cubre el caso undefined también
+    if (isNaN(cantidad) || cantidad <= 0) {
       return res.status(400).json({ ok: false, msg: 'Cantidad inválida' });
     }
 
