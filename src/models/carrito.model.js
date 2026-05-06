@@ -1,4 +1,4 @@
-const pool = require('../config/db');
+  const pool = require('../config/db');
 
 const agregar = async (id_cliente, id_producto) => {
   const [rows] = await pool.query(
