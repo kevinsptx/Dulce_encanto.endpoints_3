@@ -1,0 +1,314 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  background: #fff0f6;
+
+  color: #333;
+
+}
+
+
+/* 🌸 LINKS */
+a{
+  text-decoration: none;
+}
+
+
+/* 🌸 BOTONES */
+button{
+
+  background: #ff4fa3;
+
+  color: white;
+
+  border: none;
+
+  padding: 14px 24px;
+
+  border-radius: 14px;
+
+  cursor: pointer;
+
+  transition: 0.3s;
+
+  font-size: 15px;
+
+}
+
+button:hover{
+
+  background: #ff87c2;
+
+  transform: scale(1.05);
+
+}
+
+
+/* 🌸 TITULOS */
+.title{
+
+  text-align: center;
+
+  color: #ff4fa3;
+
+  font-size: 50px;
+
+  margin-bottom: 20px;
+
+}
+
+.subtitle{
+
+  text-align: center;
+
+  color: #777;
+
+  margin-bottom: 40px;
+
+}
+
+
+/* 🌸 PAGE */
+.page{
+
+  padding: 40px;
+
+  min-height: 80vh;
+
+}
+
+
+/* 🌸 CARDS */
+.cards{
+
+  display: grid;
+
+  grid-template-columns:
+  repeat(auto-fit, minmax(250px,1fr));
+
+  gap: 20px;
+
+}
+
+.card{
+
+  background: white;
+
+  border-radius: 20px;
+
+  padding: 25px;
+
+  box-shadow:
+  0px 4px 15px rgba(255,105,180,0.15);
+
+}
+
+
+/* 🌸 TABLAS */
+table{
+
+  width: 100%;
+
+  border-collapse: collapse;
+
+  margin-top: 30px;
+
+  background: white;
+
+  border-radius: 20px;
+
+  overflow: hidden;
+
+}
+
+th{
+
+  background: #ff4fa3;
+
+  color: white;
+
+  padding: 15px;
+
+}
+
+td{
+
+  padding: 15px;
+
+  border-bottom: 1px solid #ffd6e7;
+
+}
+
+
+/* 🌸 INPUTS */
+input{
+
+  width: 100%;
+
+  padding: 14px;
+
+  border-radius: 12px;
+
+  border: 1px solid #ffc2da;
+
+  outline: none;
+
+}
+
+input:focus{
+
+  border: 1px solid #ff4fa3;
+
+}
+
+
+/* 🌸 FORMULARIOS */
+.form{
+
+  width: 300px;
+
+  margin: auto;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 20px;
+
+}
+
+
+/* 🌸 NAVBAR */
+.navbar{
+
+  background: white;
+
+  padding: 20px 40px;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  box-shadow:
+  0px 4px 10px rgba(255,105,180,0.1);
+
+}
+
+.logo{
+
+  color: #ff4fa3;
+
+  font-size: 28px;
+
+}
+
+.links{
+
+  display: flex;
+
+  gap: 20px;
+
+}
+
+.links a{
+
+  color: #555;
+
+  font-weight: bold;
+
+}
+
+.links a:hover{
+
+  color: #ff4fa3;
+
+}
+
+
+/* 🌸 FOOTER */
+.footer{
+
+  background: white;
+
+  padding: 40px;
+
+  text-align: center;
+
+  margin-top: 50px;
+
+  box-shadow:
+  0px -4px 10px rgba(255,105,180,0.1);
+
+}
+
+.footer-links{
+
+  margin: 20px 0;
+
+  display: flex;
+
+  justify-content: center;
+
+  gap: 20px;
+
+}
+
+.footer-links a{
+
+  color: #ff4fa3;
+
+}
+
+.copy{
+
+  color: gray;
+
+  font-size: 14px;
+
+}
+
+
+/* 🌸 CARD PRODUCTOS */
+.card-producto{
+
+  background: white;
+
+  padding: 20px;
+
+  border-radius: 20px;
+
+  box-shadow:
+  0px 4px 15px rgba(255,105,180,0.15);
+
+}
+
+.card-producto img{
+
+  width: 100%;
+
+  border-radius: 15px;
+
+  margin-bottom: 15px;
+
+}
+
+.card-producto h2{
+
+  margin-bottom: 10px;
+
+}
+
+.card-producto p{
+
+  margin-bottom: 15px;
+
+}
