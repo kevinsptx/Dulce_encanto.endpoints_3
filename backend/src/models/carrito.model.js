@@ -28,7 +28,7 @@ const ver = async (id_cliente) => {
     `SELECT c.id_producto, c.cantidad,
             p.nombre, p.precio
      FROM carrito c
-     JOIN producto p ON c.id_producto = p.id
+     JOIN producto p ON c.id_producto = p.id_producto
      WHERE c.id_cliente = ?`,
     [id_cliente]
   );

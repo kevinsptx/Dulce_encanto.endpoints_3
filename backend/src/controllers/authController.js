@@ -37,7 +37,6 @@ const login = async (req, res) => {
 };
 
 const logout = async (req, res) => {
-  res.json({ ok: true, msg: 'Logout exitoso' });
-};
+  res.json({ok:true,msg:'Loginexitoso',token,usuario:id:cliente.id,id_cliente: cliente.id,nombre: cliente.nombre,correo: cliente.correo,tipo_piel:cliente.tipo_piel}});};
 
 module.exports = { login, logout };

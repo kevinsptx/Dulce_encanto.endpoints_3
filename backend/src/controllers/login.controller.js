@@ -1,97 +1,77 @@
-import { useState } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+const db = require('../config/db');
 
-function Login() {
-  const navigate = useNavigate();
+const login = async (req, res) => {
+  try {
+    const { correo, contrasena } = req.body;
 
-  const [correo, setCorreo] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  const handleLogin = async (e) => {
-    e.preventDefault();
-
-    if (!correo || !password) {
-      alert("Completa todos los campos");
-      return;
+    if (!correo || !contrasena) {
+      return res.status(400).json({
+        ok: false,
+        msg: 'Correo y contraseña son requeridos'
+      });
     }
 
-    try {
-      setLoading(true);
+    const [rows] = await db.query(
+      'SELECT * FROM cliente WHERE correo = ?',
+      [correo]
+    );
 
-      const response = await axios.post(
-        "http://localhost:3000/api/auth/login",
-        {
-          correo,
-          contrasena: password,
-        }
-      );
+    const cliente = rows[0];
 
-      // guardar sesión
-      localStorage.setItem("token", response.data.token);
-      localStorage.setItem(
-        "usuario",
-        JSON.stringify(response.data.usuario)
-      );
-
-      alert("Inicio de sesión exitoso 💖");
-
-      navigate("/");
-
-    } catch (error) {
-      console.error("LOGIN ERROR:", error);
-      console.log("RESPUESTA:", error.response?.data);
-
-      alert(
-        error.response?.data?.msg ||
-        "Error en el login"
-      );
-    } finally {
-      setLoading(false);
+    if (!cliente) {
+      return res.status(401).json({
+        ok: false,
+        msg: 'Credenciales inválidas'
+      });
     }
-  };
 
-  return (
-    <div className="login-container">
-      <div className="login-card">
+    const valid = await bcrypt.compare(
+      contrasena,
+      cliente.contrasena
+    );
 
-        <h1 className="login-title">Bienvenido 💖</h1>
-        <p className="login-subtitle">
-          Inicia sesión para continuar
-        </p>
+    if (!valid) {
+      return res.status(401).json({
+        ok: false,
+        msg: 'Credenciales inválidas'
+      });
+    }
 
-        <form onSubmit={handleLogin} className="login-form">
+    const token = jwt.sign(
+      {
+        id_cliente: cliente.id,
+        correo: cliente.correo
+      },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: '24h'
+      }
+    );
 
-          <input
-            type="email"
-            placeholder="Correo electrónico"
-            value={correo}
-            onChange={(e) => setCorreo(e.target.value)}
-            className="login-input"
-          />
+    res.json({
+      ok: true,
+      msg: 'Login exitoso',
+      token
+    });
 
-          <input
-            type="password"
-            placeholder="Contraseña"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="login-input"
-          />
+  } catch (err) {
+    res.status(500).json({
+      ok: false,
+      msg: err.message
+    });
+  }
+};
 
-          <button
-            type="submit"
-            className="login-button"
-            disabled={loading}
-          >
-            {loading ? "Ingresando..." : "Ingresar"}
-          </button>
+const logout = async (req, res) => {
+  res.json({
+    ok: true,
+    msg: 'Logout exitoso'
+  });
+};
 
-        </form>
-
-      </div>
-    </div>
-  );
-}
-
-export default Login;
+module.exports = {
+  login,
+  logout
+};

@@ -1,3 +1,4 @@
+
 const pool = require('../config/db');
 
 const getAll = async () => {
@@ -21,24 +22,64 @@ const getMasVendidos = async () => {
 
 const filtrarPorPiel = async (tipoPiel) => {
   const [rows] = await pool.query(
-    'SELECT * FROM producto WHERE tipo_piel = ?', [tipoPiel]
+    'SELECT * FROM producto WHERE tipo_piel = ?',
+    [tipoPiel]
   );
   return rows;
 };
 
 const getById = async (id) => {
   const [rows] = await pool.query(
-    'SELECT * FROM producto WHERE id_producto = ?', [id]
+    'SELECT * FROM producto WHERE id_producto = ?',
+    [id]
   );
   return rows[0];
 };
 
-const create = async ({ nombre, descripcion, precio, tipo_piel, mas_vendido }) => {
+const create = async ({
+  nombre,
+  marca,
+  descripcion,
+  precio,
+  stock,
+  tipo_piel,
+  categoria,
+  mas_vendido = 0
+}) => {
   const [result] = await pool.query(
-    'INSERT INTO producto (nombre, descripcion, precio, tipo_piel, mas_vendido) VALUES (?, ?, ?, ?, ?)',
-    [nombre, descripcion, precio, tipo_piel, mas_vendido]
+    `INSERT INTO producto
+    (nombre, marca, descripcion, precio, stock, tipo_piel, categoria, mas_vendido)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+    [
+      nombre,
+      marca,
+      descripcion,
+      precio,
+      stock,
+      tipo_piel,
+      categoria,
+      mas_vendido
+    ]
   );
-  return { id_producto: result.insertId, nombre, descripcion, precio, tipo_piel, mas_vendido };
+
+  return {
+    id_producto: result.insertId,
+    nombre,
+    marca,
+    descripcion,
+    precio,
+    stock,
+    tipo_piel,
+    categoria,
+    mas_vendido
+  };
 };
 
-module.exports = { getAll, getNuevos, getMasVendidos, filtrarPorPiel, getById, create };
+module.exports = {
+  getAll,
+  getNuevos,
+  getMasVendidos,
+  filtrarPorPiel,
+  getById,
+  create
+};

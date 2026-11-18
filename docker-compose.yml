@@ -1,0 +1,18 @@
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: dulce_encanto_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: "CambiaRoot_2026!"
+      MYSQL_DATABASE: dulce_encanto
+      MYSQL_USER: dulce_app
+      MYSQL_PASSWORD: "DulceApp_2026!"
+    ports:
+      - "3310:3306"
+    volumes:
+      - dulce_encanto_data:/var/lib/mysql
+
+volumes:
+  dulce_encanto_data:
